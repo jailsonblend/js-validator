@@ -14,7 +14,7 @@ var Utils = {
     isEmbedObject: function(val){
         var embed = ["iframe", "object", "embed", "video"];
         var result = false;
-        $.each(embed, function(i, v){
+        embed.forEach(function(v, i){
             'use strict';
             if (typeof val === "string" && val.toLowerCase() === v) {
                 result = true;
@@ -328,7 +328,7 @@ var Utils = {
 
     objectShift: function(obj){
         var min = 0;
-        $.each(obj, function(i){
+        Object.keys(obj).forEach(function(i){
             if (min === 0) {
                 min = i;
             } else {
@@ -375,17 +375,6 @@ var Utils = {
             }
         }
         return copy;
-    },
-
-    github: function(repo, callback){
-        var that = this;
-        $.ajax({
-            url: 'https://api.github.com/repos/' + repo,
-            dataType: 'jsonp'
-        })
-        .done(function(data){
-            that.callback(callback, [data.data]);
-        });
     },
 
     detectIE: function() {
@@ -636,14 +625,6 @@ var Utils = {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     },
 
-    getLocales: function(){
-        return Object.keys(Metro.locales);
-    },
-
-    addLocale: function(locale){
-        Metro.locales = $.extend( {}, Metro.locales, locale );
-    },
-
     strToArray: function(str, delimiter, type, format){
         var a;
 
@@ -722,18 +703,6 @@ var Utils = {
 
     media: function(query){
         return window.matchMedia(query).matches
-    },
-
-    mediaModes: function(){
-        return METRO_MEDIA;
-    },
-
-    mediaExist: function(media){
-        return METRO_MEDIA.indexOf(media) > -1;
-    },
-
-    inMedia: function(media){
-        return METRO_MEDIA.indexOf(media) > -1 && METRO_MEDIA.indexOf(media) === METRO_MEDIA.length - 1;
     },
 
     isValue: function(val){
@@ -908,5 +877,3 @@ var Utils = {
         return q;
     }
 };
-
-Metro['utils'] = Utils;
